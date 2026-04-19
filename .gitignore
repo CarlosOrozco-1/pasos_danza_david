@@ -1,0 +1,35 @@
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Build artifacts
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Firebase (credenciales sensibles si es necesario)
+# firebase-config.js (ya está en index.html)
+
+# Misc
+.cache/
+temp/
+.tmp/
