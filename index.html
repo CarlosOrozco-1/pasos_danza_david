@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasos de Danza</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-left">
+        <h1>Pasos de Danza</h1>
+        <span id="user-info" class="user-info" style="display: none;">Modo: <strong id="user-name">Admin</strong></span>
+      </div>
+      <div class="header-right">
+        <button id="btn-admin" class="btn-secondary">👤 Admin</button>
+        <button id="btn-agregar-paso" class="btn-primary" style="display: none;">+ Agregar Paso</button>
+        <button id="btn-logout" class="btn-secondary" style="display: none;">Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <div id="lista-pasos" class="lista-pasos"></div>
+  </div>
+
+  <!-- Modal de Login -->
+  <div id="modal-login" class="modal hidden">
+    <div class="login-modal-content">
+      <h2>Acceso de Administrador</h2>
+      <form id="form-login">
+        <div class="form-group">
+          <label for="login-usuario">Usuario</label>
+          <input 
+            type="text" 
+            id="login-usuario" 
+            placeholder="Ingresa tu usuario"
+            required
+          >
+        </div>
+        <div class="form-group">
+          <label for="login-contrasena">Contraseña</label>
+          <input 
+            type="password" 
+            id="login-contrasena" 
+            placeholder="Ingresa tu contraseña"
+            required
+          >
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%;">Iniciar Sesión</button>
+      </form>
+      <div id="login-error" class="login-error" style="display: none;"></div>
+      <button type="button" id="btn-login-cancelar" class="btn-secondary" style="width: 100%; margin-top: 10px;">Cancelar</button>
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modal-title">Nuevo Paso de Danza</h2>
+      <form id="form-paso">
+        <div class="form-group">
+          <label for="nombre">Nombre del paso:</label>
+          <input type="text" id="nombre" required placeholder="ej: basic step">
+        </div>
+        <div class="form-group">
+          <label for="embed-code">Código embed de YouTube:</label>
+          <textarea id="embed-code" required placeholder="Pega el código embed de YouTube"></textarea>
+          <small>Ejemplo: &lt;<iframe width="1455" height="818" src="https://www.youtube.com/embed/FA9Ja5h1VYw?list=RDFA9Ja5h1VYw" title="Marino - Bendice Tu Pueblo Señor (musica)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>" ...&gt;&lt;/iframe&gt;</small>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="btn-cancelar" class="btn-secondary">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lightbox para visualizar videos -->
+  <div id="video-lightbox" class="lightbox hidden">
+    <div class="lightbox-overlay"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" aria-label="Cerrar video">&times;</button>
+      <div id="lightbox-video" class="lightbox-video"></div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK v8 (Estable y Funcional) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <!-- Configuracion Firebase -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyByRoG4psaUVevkvVl_CjdXuMW_-7QqI44",
+      authDomain: "pasos-de-danza.firebaseapp.com",
+      projectId: "pasos-de-danza",
+      databaseURL: "https://pasos-de-danza.firebaseio.com",
+      storageBucket: "pasos-de-danza.firebasestorage.app",
+      messagingSenderId: "170542507869",
+      appId: "1:170542507869:web:aff3c90981b3660b212ab4"
+    };
+
+    // Inicializar Firebase
+    try {
+      firebase.initializeApp(firebaseConfig);
+      window.db = firebase.firestore();
+    } catch (error) {
+      alert('Error al inicializar Firebase');
+    }
+  </script>
+
+  <!-- Autenticación -->
+  <script src="auth.js"></script>
+  
+  <!-- App Principal -->
+  <script src="app.js"></script>
+</body>
+</html>
