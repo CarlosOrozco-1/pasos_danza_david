@@ -71,6 +71,25 @@ function openLightbox(pasoId) {
     .replace(/width="[^"]*"/g, '')
     .replace(/height="[^"]*"/g, '');
   
+  // Agregar autoplay y loop si no están presentes
+  cleanEmbedCode = cleanEmbedCode.replace(/src="([^"]*)"/g, (match, url) => {
+    // Si ya tiene autoplay y loop, dejar como está
+    if (url.includes('autoplay=1') && url.includes('loop=1')) {
+      return match;
+    }
+    // Si no tiene, agregar parámetros
+    const separator = url.includes('?') ? '&' : '?';
+    const videoId = url.match(/embed\/([^\/?]+)/)?.[1];
+    let newUrl = url;
+    if (!url.includes('autoplay=1')) {
+      newUrl += separator + 'autoplay=1';
+    }
+    if (!url.includes('loop=1') && videoId) {
+      newUrl += '&loop=1&playlist=' + videoId;
+    }
+    return `src="${newUrl}"`;
+  });
+  
   videoContainer.innerHTML = cleanEmbedCode;
   document.getElementById('video-lightbox').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
