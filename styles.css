@@ -127,8 +127,9 @@ header h1 {
   box-shadow: 0 15px 40px rgba(212, 132, 92, 0.2);
 }
 
-.paso-card h3 {
+.paso-card h3 { /* Título del paso */
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .paso-card h3 a {
