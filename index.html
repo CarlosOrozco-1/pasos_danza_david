@@ -18,10 +18,25 @@
         <button id="btn-admin" class="btn-secondary">👤 Admin</button>
         <button id="btn-agregar-paso" class="btn-primary" style="display: none;">+ Agregar Paso</button>
         <button id="btn-logout" class="btn-secondary" style="display: none;">Cerrar Sesión</button>
-      </div>
+
+    </div>
     </header>
 
+    <!-- Lista de pasos -->
     <div id="lista-pasos" class="lista-pasos"></div>
+
+    <!-- Nueva sección: Enseñanza Bíblica -->
+    <div id="container-ensenanza" class="container" style="display:none;">
+      <section class="ensenanza-header">
+        <h2>Enseñanza Bíblica sobre la Danza</h2>
+        <p class="ensenanza-desc">Consulta los diferentes tipos de danza, su base bíblica, raíces y significados.</p>
+        <div id="ensenanza-admin-bar" style="display:none;">
+          <button id="btn-agregar-ensenanza" class="btn-primary">+ Agregar Enseñanza</button>
+        </div>
+      </section>
+      <section id="ensenanza-lista" class="ensenanza-lista"></section>
+    </div>
+
   </div>
 
   <!-- Modal de Login -->
