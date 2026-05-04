@@ -194,40 +194,116 @@ const danzasCaidas = [
 ];
 
 let modoAdmin = false;
-let ensenanzaExpandida = null;
-
-function toggleEnsenanza(id) {
-  // Buscar en danzas bíblicas
-  let encontrada = ensenanzasBiblicas.find(e => e.id === id);
-  // Si no está, buscar en danzas caídas
-  if (!encontrada) {
-    encontrada = danzasCaidas.find(e => e.id === id);
-  }
-  
-  // Si ya está expandida, contraer; si no, expandir
-  if (ensenanzaExpandida && ensenanzaExpandida.id === id) {
-    ensenanzaExpandida = null;
-  } else {
-    ensenanzaExpandida = encontrada;
-  }
-  
-  renderEnsenanzas();
-}
+let ensenanzaSeleccionada = null;
 
 function renderEnsenanzas() {
-  let html = '<div class="layout">';
-  html += '<div class="detail">';
+  const container = document.getElementById('ensenanza-lista');
+  if (!container) return;
 
-  if (ensenanzaExpandida) {
-    // Aquí renderizas el detalle de la enseñanza expandida
+  // Si no hay ninguna seleccionada, seleccionar la primera por defecto
+  if (!ensenanzaSeleccionada && ensenanzasBiblicas.length > 0) {
+    ensenanzaSeleccionada = ensenanzasBiblicas[0];
+  }
+
+  let html = '<div class="ensenanza-layout">';
+
+  // 1. Renderizar Sidebar (Lista)
+  html += '<div class="ensenanza-sidebar">';
+  
+  // Danzas Bíblicas
+  html += '<div class="ensenanza-sidebar-title">Danzas Bíblicas</div>';
+  html += '<div class="ensenanza-list">';
+  ensenanzasBiblicas.forEach(danza => {
+    const isActive = ensenanzaSeleccionada && ensenanzaSeleccionada.id === danza.id ? 'active' : '';
     html += `
-      <div class="ensenanza-detail">
-        <h3>${ensenanzaExpandida.titulo}</h3>
-        <p>${ensenanzaExpandida.descripcion}</p>
+      <div class="ensenanza-item ${isActive}" onclick="seleccionarEnsenanza('${danza.id}'); return false;">
+        <span class="ensenanza-item-codigo">${danza.codigo}</span>
+        <span class="ensenanza-item-nombre">${escapeHtml(danza.nombre)}</span>
+      </div>
+    `;
+  });
+  html += '</div>';
+
+  // Danzas Caídas
+  html += '<div class="ensenanza-sidebar-title danzas-caidas-title">Danzas Caídas</div>';
+  html += '<div class="ensenanza-list">';
+  danzasCaidas.forEach(danza => {
+    const isActive = ensenanzaSeleccionada && ensenanzaSeleccionada.id === danza.id ? 'active' : '';
+    html += `
+      <div class="ensenanza-item ensenanza-item-caida ${isActive}" onclick="seleccionarEnsenanza('${danza.id}'); return false;">
+        <span class="ensenanza-item-codigo">${danza.codigo}</span>
+        <span class="ensenanza-item-nombre">${escapeHtml(danza.nombre)}</span>
+      </div>
+    `;
+  });
+  html += '</div>';
+
+  html += '</div>'; // Cierre Sidebar
+
+  // 2. Renderizar Detail View
+  html += '<div class="ensenanza-detail">';
+
+  if (ensenanzaSeleccionada) {
+    const isCaida = danzasCaidas.some(d => d.id === ensenanzaSeleccionada.id);
+    const cardClass = isCaida ? 'ensenanza-card-caida' : '';
+    
+    html += `
+      <div class="ensenanza-card ${cardClass}">
+        <div class="ensenanza-card-header">
+          <h2>${escapeHtml(ensenanzaSeleccionada.nombre)} <span class="ensenanza-codigo">${escapeHtml(ensenanzaSeleccionada.codigo)}</span></h2>
+          <div class="ensenanza-titulo">${escapeHtml(ensenanzaSeleccionada.significado || '')}</div>
+        </div>
+        <div class="ensenanza-card-body">
+    `;
+
+    if (ensenanzaSeleccionada.raiz) {
+      html += `
+        <div class="ensenanza-info-block">
+          <h4>Raíz / Origen</h4>
+          <p>${escapeHtml(ensenanzaSeleccionada.raiz)}</p>
+        </div>
+      `;
+    }
+
+    if (ensenanzaSeleccionada.explicacion) {
+      html += `
+        <div class="ensenanza-info-block">
+          <h4>Explicación</h4>
+          <p>${escapeHtml(ensenanzaSeleccionada.explicacion)}</p>
+        </div>
+      `;
+    }
+
+    if (ensenanzaSeleccionada.versiculos && ensenanzaSeleccionada.versiculos.length > 0) {
+      html += `
+        <div class="ensenanza-info-block">
+          <h4>Base Bíblica</h4>
+          <div class="versiculos-lista">
+            ${ensenanzaSeleccionada.versiculos.map(v => `
+              <div class="versiculo-item">
+                <strong>${escapeHtml(v.cita)}</strong>
+                ${v.texto ? `<p>"${escapeHtml(v.texto)}"</p>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Acciones (si es admin)
+    if (modoAdmin) {
+      html += `
+        <div class="ensenanza-actions">
+          <button class="btn-edit" onclick="editarEnsenanza('${ensenanzaSeleccionada.id}'); return false;">✏️ Editar</button>
+        </div>
+      `;
+    }
+
+    html += `
+        </div>
       </div>
     `;
   } else {
-    // Si no hay enseñanza seleccionada
     html += `
       <div class="ensenanza-empty">
         <p>👈 Selecciona una danza de la lista para ver su detalle</p>
@@ -238,10 +314,8 @@ function renderEnsenanzas() {
   html += '</div>'; // Cierre detail
   html += '</div>'; // Cierre layout
 
-  lista.innerHTML = html;
+  container.innerHTML = html;
 }
-
-
 
 function seleccionarEnsenanza(id) {
   // Buscar en danzas bíblicas
@@ -250,8 +324,11 @@ function seleccionarEnsenanza(id) {
   if (!encontrada) {
     encontrada = danzasCaidas.find(e => e.id === id);
   }
-  ensenanzaSeleccionada = encontrada;
-  renderEnsenanzas();
+  
+  if (encontrada) {
+    ensenanzaSeleccionada = encontrada;
+    renderEnsenanzas();
+  }
 }
 
 // Navegación entre módulos
