@@ -1039,3 +1039,147 @@ header h1 {
     font-size: 1.5rem;
   }
 }
+
+/* ================= ACCORDION STYLES ================= */
+.accordion-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.accordion-header-global {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.accordion-header-global h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.btn-expand-all {
+  background: #007bff; /* Azul estilo Ebenezer */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.btn-expand-all:hover {
+  background: #0056b3;
+}
+
+.accordion-card {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.accordion-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.card-caida {
+  border-left: 4px solid #a13a3a;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
+  background: white;
+  transition: background 0.2s;
+}
+
+.accordion-header:hover {
+  background: #f8f9fa;
+}
+
+.accordion-title-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.circle-icon {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+}
+
+.title-text h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.title-text .subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  display: block;
+  margin-top: 4px;
+}
+
+.accordion-toggle-btn {
+  background: transparent;
+  color: #007bff;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.toggle-icon {
+  background: #007bff;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.6rem;
+}
+
+.accordion-body {
+  padding: 20px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  background: #fdfdfd;
+}
+
+.ensenanza-titulo-codigo {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.ensenanza-codigo {
+  background: rgba(0,0,0,0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}

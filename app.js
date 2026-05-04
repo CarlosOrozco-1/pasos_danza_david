@@ -194,141 +194,143 @@ const danzasCaidas = [
 ];
 
 let modoAdmin = false;
-let ensenanzaSeleccionada = null;
+let ensenanzasExpandidas = new Set();
+
+function toggleAccordionGlobal() {
+  const totalEnsenanzas = ensenanzasBiblicas.length + danzasCaidas.length;
+  if (ensenanzasExpandidas.size === totalEnsenanzas) {
+    // Si todas están expandidas, contraer todas
+    ensenanzasExpandidas.clear();
+  } else {
+    // Expandir todas
+    ensenanzasBiblicas.forEach(d => ensenanzasExpandidas.add(d.id));
+    danzasCaidas.forEach(d => ensenanzasExpandidas.add(d.id));
+  }
+  renderEnsenanzas();
+}
+
+function toggleEnsenanza(id) {
+  if (ensenanzasExpandidas.has(id)) {
+    ensenanzasExpandidas.delete(id);
+  } else {
+    ensenanzasExpandidas.add(id);
+  }
+  renderEnsenanzas();
+}
 
 function renderEnsenanzas() {
   const container = document.getElementById('ensenanza-lista');
   if (!container) return;
 
-  // Si no hay ninguna seleccionada, seleccionar la primera por defecto
-  if (!ensenanzaSeleccionada && ensenanzasBiblicas.length > 0) {
-    ensenanzaSeleccionada = ensenanzasBiblicas[0];
-  }
+  const totalEnsenanzas = ensenanzasBiblicas.length + danzasCaidas.length;
+  const todasExpandidas = ensenanzasExpandidas.size === totalEnsenanzas && totalEnsenanzas > 0;
+  const textoExpandir = todasExpandidas ? 'Collapse All' : 'Expand All';
 
-  let html = '<div class="ensenanza-layout">';
+  let html = '<div class="accordion-container">';
 
-  // 1. Renderizar Sidebar (Lista)
-  html += '<div class="ensenanza-sidebar">';
-  
-  // Danzas Bíblicas
-  html += '<div class="ensenanza-sidebar-title">Danzas Bíblicas</div>';
-  html += '<div class="ensenanza-list">';
-  ensenanzasBiblicas.forEach(danza => {
-    const isActive = ensenanzaSeleccionada && ensenanzaSeleccionada.id === danza.id ? 'active' : '';
-    html += `
-      <div class="ensenanza-item ${isActive}" onclick="seleccionarEnsenanza('${danza.id}'); return false;">
-        <span class="ensenanza-item-codigo">${danza.codigo}</span>
-        <span class="ensenanza-item-nombre">${escapeHtml(danza.nombre)}</span>
-      </div>
-    `;
-  });
-  html += '</div>';
+  // Header Global
+  html += `
+    <div class="accordion-header-global">
+      <h2>Tipos de danzas bíblicas</h2>
+      <button class="btn-expand-all" onclick="toggleAccordionGlobal(); return false;">
+        <span>${todasExpandidas ? '▲' : '▼'}</span> ${textoExpandir}
+      </button>
+    </div>
+  `;
 
-  // Danzas Caídas
-  html += '<div class="ensenanza-sidebar-title danzas-caidas-title">Danzas Caídas</div>';
-  html += '<div class="ensenanza-list">';
-  danzasCaidas.forEach(danza => {
-    const isActive = ensenanzaSeleccionada && ensenanzaSeleccionada.id === danza.id ? 'active' : '';
-    html += `
-      <div class="ensenanza-item ensenanza-item-caida ${isActive}" onclick="seleccionarEnsenanza('${danza.id}'); return false;">
-        <span class="ensenanza-item-codigo">${danza.codigo}</span>
-        <span class="ensenanza-item-nombre">${escapeHtml(danza.nombre)}</span>
-      </div>
-    `;
-  });
-  html += '</div>';
-
-  html += '</div>'; // Cierre Sidebar
-
-  // 2. Renderizar Detail View
-  html += '<div class="ensenanza-detail">';
-
-  if (ensenanzaSeleccionada) {
-    const isCaida = danzasCaidas.some(d => d.id === ensenanzaSeleccionada.id);
-    const cardClass = isCaida ? 'ensenanza-card-caida' : '';
+  // Helper function to render a card
+  const renderCard = (danza, isCaida = false) => {
+    const isExpanded = ensenanzasExpandidas.has(danza.id);
+    const numTests = danza.versiculos ? danza.versiculos.length : 0;
     
-    html += `
-      <div class="ensenanza-card ${cardClass}">
-        <div class="ensenanza-card-header">
-          <h2>${escapeHtml(ensenanzaSeleccionada.nombre)} <span class="ensenanza-codigo">${escapeHtml(ensenanzaSeleccionada.codigo)}</span></h2>
-          <div class="ensenanza-titulo">${escapeHtml(ensenanzaSeleccionada.significado || '')}</div>
-        </div>
-        <div class="ensenanza-card-body">
-    `;
-
-    if (ensenanzaSeleccionada.raiz) {
-      html += `
-        <div class="ensenanza-info-block">
-          <h4>Raíz / Origen</h4>
-          <p>${escapeHtml(ensenanzaSeleccionada.raiz)}</p>
-        </div>
-      `;
-    }
-
-    if (ensenanzaSeleccionada.explicacion) {
-      html += `
-        <div class="ensenanza-info-block">
-          <h4>Explicación</h4>
-          <p>${escapeHtml(ensenanzaSeleccionada.explicacion)}</p>
-        </div>
-      `;
-    }
-
-    if (ensenanzaSeleccionada.versiculos && ensenanzaSeleccionada.versiculos.length > 0) {
-      html += `
-        <div class="ensenanza-info-block">
-          <h4>Base Bíblica</h4>
-          <div class="versiculos-lista">
-            ${ensenanzaSeleccionada.versiculos.map(v => `
-              <div class="versiculo-item">
-                <strong>${escapeHtml(v.cita)}</strong>
-                ${v.texto ? `<p>"${escapeHtml(v.texto)}"</p>` : ''}
-              </div>
-            `).join('')}
+    let cardHtml = `
+      <div class="accordion-card ${isCaida ? 'card-caida' : ''}">
+        <div class="accordion-header" onclick="toggleEnsenanza('${danza.id}'); return false;">
+          <div class="accordion-title-area">
+            <div class="circle-icon"></div>
+            <div class="title-text">
+              <h3>${escapeHtml(danza.nombre)}</h3>
+              <span class="subtitle">${numTests} Test</span>
+            </div>
+          </div>
+          <div class="accordion-toggle-area">
+            <button class="accordion-toggle-btn">
+              <span class="toggle-icon">✔️</span> <span class="toggle-text">${isExpanded ? 'Collapse' : 'Expand'}</span>
+            </button>
           </div>
         </div>
-      `;
+    `;
+
+    if (isExpanded) {
+      cardHtml += `<div class="accordion-body">`;
+      // Contenido interno (detalle)
+      cardHtml += `<div class="ensenanza-titulo-codigo"><span class="ensenanza-codigo">${escapeHtml(danza.codigo)}</span> - ${escapeHtml(danza.significado || '')}</div>`;
+      
+      if (danza.raiz) {
+        cardHtml += `
+          <div class="ensenanza-info-block">
+            <h4>Raíz / Origen</h4>
+            <p>${escapeHtml(danza.raiz)}</p>
+          </div>
+        `;
+      }
+
+      if (danza.explicacion) {
+        cardHtml += `
+          <div class="ensenanza-info-block">
+            <h4>Explicación</h4>
+            <p>${escapeHtml(danza.explicacion)}</p>
+          </div>
+        `;
+      }
+
+      if (danza.versiculos && danza.versiculos.length > 0) {
+        cardHtml += `
+          <div class="ensenanza-info-block">
+            <h4>Base Bíblica</h4>
+            <div class="versiculos-lista">
+              ${danza.versiculos.map(v => `
+                <div class="versiculo-item">
+                  <strong>${escapeHtml(v.cita)}</strong>
+                  ${v.texto ? `<p>"${escapeHtml(v.texto)}"</p>` : ''}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      if (modoAdmin) {
+        cardHtml += `
+          <div class="ensenanza-actions">
+            <button class="btn-edit" onclick="editarEnsenanza('${danza.id}'); return false;">✏️ Editar</button>
+          </div>
+        `;
+      }
+
+      cardHtml += `</div>`; // Cierre accordion-body
     }
 
-    // Acciones (si es admin)
-    if (modoAdmin) {
-      html += `
-        <div class="ensenanza-actions">
-          <button class="btn-edit" onclick="editarEnsenanza('${ensenanzaSeleccionada.id}'); return false;">✏️ Editar</button>
-        </div>
-      `;
-    }
+    cardHtml += `</div>`; // Cierre accordion-card
+    return cardHtml;
+  };
 
-    html += `
-        </div>
-      </div>
-    `;
-  } else {
-    html += `
-      <div class="ensenanza-empty">
-        <p>👈 Selecciona una danza de la lista para ver su detalle</p>
-      </div>
-    `;
+  // Renderizar Danzas Bíblicas
+  ensenanzasBiblicas.forEach(danza => {
+    html += renderCard(danza, false);
+  });
+
+  // Renderizar Danzas Caídas
+  if (danzasCaidas.length > 0) {
+    html += `<h3 class="caidas-separator-title" style="margin-top: 30px; margin-bottom: 15px; color: #a13a3a;">Danzas Caídas</h3>`;
+    danzasCaidas.forEach(danza => {
+      html += renderCard(danza, true);
+    });
   }
 
-  html += '</div>'; // Cierre detail
-  html += '</div>'; // Cierre layout
+  html += '</div>'; // Cierre accordion-container
 
   container.innerHTML = html;
-}
-
-function seleccionarEnsenanza(id) {
-  // Buscar en danzas bíblicas
-  let encontrada = ensenanzasBiblicas.find(e => e.id === id);
-  // Si no está, buscar en danzas caídas
-  if (!encontrada) {
-    encontrada = danzasCaidas.find(e => e.id === id);
-  }
-  
-  if (encontrada) {
-    ensenanzaSeleccionada = encontrada;
-    renderEnsenanzas();
-  }
 }
 
 // Navegación entre módulos
