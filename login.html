@@ -215,11 +215,10 @@
     </div>
   </div>
 
-  <!-- Autenticación -->
-  <script src="auth.js"></script>
+  <!-- Script de login (ES6 Module) -->
+  <script type="module">
+    import { login, esAdmin } from './js/services/auth.js';
 
-  <!-- Script de login -->
-  <script>
     document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
 

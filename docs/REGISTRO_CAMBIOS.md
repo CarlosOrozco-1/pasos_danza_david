@@ -17,5 +17,14 @@ Este archivo mantiene un registro de todas las modificaciones funcionales y de d
   - Se implementó la conexión con `https://bible-api.deno.dev/api` para obtener todos los libros y capítulos de la versión Reina Valera 1960 dinámicamente.
   - Se aplicaron estilos *Glassmorphism* al panel de lectura para mantener la coherencia de diseño.
 
+### Refactorización de Arquitectura
+- **Módulos ES6:** Se migró todo el código monolítico de `app.js` y `auth.js` a una arquitectura modular moderna basada en dominios dentro de la carpeta `/js/`.
+  - `js/main.js`: Punto de entrada unificado y orquestador.
+  - `js/state.js`: Gestor del estado global (ej: permisos de admin).
+  - `js/config/firebase.js`: Configuración limpia y conexión a la base de datos.
+  - `js/services/auth.js`: Lógica de sesiones y permisos encapsulada.
+  - `js/modules/pasos.js`, `js/modules/ensenanza.js`, `js/modules/biblia.js`: Submódulos independientes por funcionalidad.
+  - Se actualizó `index.html` y `login.html` para importar los scripts mediante `<script type="module">`.
+
 ### Correcciones de Errores
 - **Error de Conexión a Firebase:** Se detectó y documentó el problema de permisos insuficientes (`Missing or insufficient permissions`). Se resolvieron aplicando reglas de seguridad de lectura/escritura pública en Firestore Console (ver detalle en `docs/errores_y_soluciones/01-firebase-missing-permissions.md`).

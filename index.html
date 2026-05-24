@@ -123,31 +123,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-  <!-- Configuracion Firebase -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyByRoG4psaUVevkvVl_CjdXuMW_-7QqI44",
-      authDomain: "pasos-de-danza.firebaseapp.com",
-      projectId: "pasos-de-danza",
-      databaseURL: "https://pasos-de-danza.firebaseio.com",
-      storageBucket: "pasos-de-danza.firebasestorage.app",
-      messagingSenderId: "170542507869",
-      appId: "1:170542507869:web:aff3c90981b3660b212ab4"
-    };
-
-    // Inicializar Firebase
-    try {
-      firebase.initializeApp(firebaseConfig);
-      window.db = firebase.firestore();
-    } catch (error) {
-      alert('Error al inicializar Firebase');
-    }
-  </script>
-
-  <!-- Autenticación -->
-  <script src="auth.js"></script>
-  
-  <!-- App Principal -->
-  <script src="app.js"></script>
+  <!-- App Principal (ES6 Modules) -->
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
