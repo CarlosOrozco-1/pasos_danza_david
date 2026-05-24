@@ -229,7 +229,12 @@ function renderEnsenanzas() {
 
   let html = `
     <div class="intro-danza-container">
-      <h1 class="intro-title">La Danza: Expresión del Ser Integral</h1>
+      <center>
+      <h1 class="intro-title">Danza</h1>
+      </center>
+      <center>
+      <h2 class="intro-title">Expresión del Ser Integral</h2>
+      </center>
       <p class="intro-text">La danza es una <strong>expresión corpórea rítmica</strong> que expresa lo que sentimos por dentro: agradecimiento, gozo, libertad, admiración y exaltación a Dios. <em>Salmos 103:1</em>: «Bendiga todo <strong>mi ser</strong> su santo nombre.» — <strong>Espíritu, Alma y Cuerpo.</strong></p>
       
       <div class="intro-grid-3">
