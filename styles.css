@@ -509,27 +509,68 @@ body {
   font-size: 1rem;
   line-height: 1.5;
 }
-.versiculo-item {
-  background: rgba(255, 255, 255, 0.5);
-  border-left: 4px solid #5b3e90;
-  padding: 14px 18px;
-  margin-bottom: 10px;
-  border-radius: 0 8px 8px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+.versiculos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 5px;
 }
-.versiculo-item strong {
+.versiculo-tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+.versiculo-cita {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(91, 62, 144, 0.3);
   color: #2d1b54;
-  font-size: 1rem;
-  display: block;
-  margin-bottom: 6px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.95rem;
   font-weight: 700;
+  cursor: help;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
 }
-.versiculo-item p {
-  color: #4a4a4a;
-  font-size: 1rem;
+.versiculo-cita:hover {
+  background: rgba(91, 62, 144, 0.1);
+  transform: translateY(-2px);
+}
+.versiculo-tooltip-text {
+  visibility: hidden;
+  width: 280px;
+  background-color: rgba(45, 27, 84, 0.95);
+  color: #fff;
+  text-align: center;
+  border-radius: 12px;
+  padding: 14px;
+  position: absolute;
+  z-index: 100;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 0.95rem;
   line-height: 1.5;
-  margin: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  pointer-events: none;
   font-style: italic;
+}
+.versiculo-tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(45, 27, 84, 0.95) transparent transparent transparent;
+}
+.versiculo-tooltip-container:hover .versiculo-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
 }
 .ensenanza-actions {
   display: flex;

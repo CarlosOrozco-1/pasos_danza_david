@@ -348,9 +348,9 @@ function renderEnsenanzas() {
             <h4>Base Bíblica</h4>
             <div class="versiculos-lista">
               ${danza.versiculos.map(v => `
-                <div class="versiculo-item">
-                  <strong>${escapeHtml(v.cita)}</strong>
-                  ${v.texto ? `<p>"${escapeHtml(v.texto)}"</p>` : ''}
+                <div class="versiculo-tooltip-container">
+                  <span class="versiculo-cita">📖 ${escapeHtml(v.cita)}</span>
+                  ${v.texto ? `<div class="versiculo-tooltip-text">"${escapeHtml(v.texto)}"</div>` : ''}
                 </div>
               `).join('')}
             </div>
