@@ -1410,3 +1410,124 @@ header h1 {
   color: #555;
   font-size: 1rem;
 }
+
+/* ================= BIBLE MODULE ================= */
+.biblia-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.biblia-controles {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.biblia-select {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(91, 62, 144, 0.3);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #2d1b54;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.biblia-select:focus {
+  border-color: #5b3e90;
+  box-shadow: 0 4px 15px rgba(91, 62, 144, 0.1);
+}
+
+.biblia-select:disabled {
+  background: rgba(255, 255, 255, 0.3);
+  color: #888;
+  cursor: not-allowed;
+  border-color: rgba(0,0,0,0.1);
+}
+
+.biblia-contenido {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  padding: 30px;
+  margin-top: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.04);
+  min-height: 200px;
+}
+
+.biblia-placeholder {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  font-style: italic;
+  padding: 40px 0;
+}
+
+.biblia-loading {
+  text-align: center;
+  color: #5b3e90;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(91, 62, 144, 0.2);
+  border-left-color: #5b3e90;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.capitulo-titulo {
+  color: #2d1b54;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-align: center;
+  border-bottom: 2px solid rgba(91, 62, 144, 0.1);
+  padding-bottom: 15px;
+}
+
+.versiculo-lectura {
+  margin-bottom: 15px;
+  line-height: 1.8;
+  font-size: 1.15rem;
+  color: #333;
+}
+
+.versiculo-num {
+  font-weight: 800;
+  color: #5b3e90;
+  font-size: 0.9em;
+  margin-right: 6px;
+  vertical-align: super;
+}
+
+.versiculo-study {
+  font-weight: 800;
+  color: #2d1b54;
+  display: block;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}

@@ -12,6 +12,10 @@ Este archivo mantiene un registro de todas las modificaciones funcionales y de d
 ### Nuevas Funcionalidades
 - **Tooltips para Versículos Bíblicos:** Se reemplazó el texto bíblico estático en las tarjetas de enseñanza por un sistema de *Tooltips*. Ahora solo se muestra la cita bíblica en forma de etiqueta, y al posicionar el cursor sobre ella, aparece una ventana flotante con el texto completo del versículo.
   - *Fix:* Se removió la propiedad `overflow: hidden` de `.accordion-card` para permitir que el tooltip se despliegue y se vea completamente sin recortarse.
+- **Módulo de Biblia Integrado (RV1960):** Se añadió una nueva sección completa para leer la Biblia.
+  - Se agregó el botón "📖 Biblia" en el menú principal.
+  - Se implementó la conexión con `https://bible-api.deno.dev/api` para obtener todos los libros y capítulos de la versión Reina Valera 1960 dinámicamente.
+  - Se aplicaron estilos *Glassmorphism* al panel de lectura para mantener la coherencia de diseño.
 
 ### Correcciones de Errores
 - **Error de Conexión a Firebase:** Se detectó y documentó el problema de permisos insuficientes (`Missing or insufficient permissions`). Se resolvieron aplicando reglas de seguridad de lectura/escritura pública en Firestore Console (ver detalle en `docs/errores_y_soluciones/01-firebase-missing-permissions.md`).

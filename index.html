@@ -37,6 +37,26 @@
       <section id="ensenanza-lista" class="ensenanza-lista"></section>
     </div>
 
+    <!-- Nueva sección: Módulo de Biblia -->
+    <div id="container-biblia" class="container" style="display:none;">
+      <section class="biblia-header">
+        <h2>Biblia Reina Valera 1960</h2>
+        <p class="ensenanza-desc">Lee y busca versículos bíblicos (RV1960).</p>
+        <div class="biblia-controles">
+          <select id="select-libro" class="biblia-select">
+            <option value="">Selecciona un libro...</option>
+          </select>
+          <select id="select-capitulo" class="biblia-select" disabled>
+            <option value="">Capítulo...</option>
+          </select>
+          <button id="btn-leer-biblia" class="btn-primary" disabled>Leer Capítulo</button>
+        </div>
+      </section>
+      <section id="biblia-contenido" class="biblia-contenido">
+        <div class="biblia-placeholder">Selecciona un libro y capítulo para comenzar a leer.</div>
+      </section>
+    </div>
+
   </div>
 
   <!-- Modal de Login -->
