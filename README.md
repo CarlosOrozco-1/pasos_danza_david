@@ -16,12 +16,14 @@ Aplicación web interactiva para gestionar un listado de pasos de danza. **v2.0.
 ✨ **Funcionalidades principales:**
 
 ### Para Todos (Público)
+
 - 📋 Listado de pasos de danza en cards responsivos
 - 🎬 Visualización de videos embebidos de YouTube en lightbox
 - 🎨 Diseño moderno con gradientes y animaciones suaves
 - 📱 Interfaz responsive para dispositivos móviles
 
 ### Para Administradores
+
 - ➕ **Agregar** nuevos pasos mediante modal
 - ✏️ **Editar** pasos existentes
 - 🗑️ **Eliminar** pasos con confirmación
@@ -31,15 +33,19 @@ Aplicación web interactiva para gestionar un listado de pasos de danza. **v2.0.
 ## Acceso
 
 ### 👥 Usuario Público (Sin Login)
+
 - Solo ver pasos y videos
 - No puede agregar/editar/eliminar
 
 ### 👨‍💼 Usuario Admin
+
 **Credenciales:**
-- Usuario: `admin`
-- Contraseña: `pasos2026`
+
+- Usuario: `*****`
+- Contraseña: `*****`
 
 **Acceso a:**
+
 - Crear, editar y eliminar pasos
 - Panel de administración
 - Indicador de sesión activa
@@ -47,42 +53,49 @@ Aplicación web interactiva para gestionar un listado de pasos de danza. **v2.0.
 ## Cómo Usar
 
 ### 1. **Acceder como Público**
-   - Abre `index.html` en tu navegador
-   - Verás la lista de pasos disponibles
-   - Click en cualquier paso para ver el video
+
+- Abre `index.html` en tu navegador
+- Verás la lista de pasos disponibles
+- Click en cualquier paso para ver el video
 
 ### 2. **Acceder como Admin**
-   - Abre `login.html`
-   - Ingresa credenciales: `admin` / `pasos2026`
-   - Serás redirigido a `index.html` en modo admin
-   - Ahora verás botones de ➕ **Agregar**, ✏️ **Editar**, 🗑️ **Eliminar**
+
+- Abre `login.html`
+- Ingresa credenciales: `admin` / `pasos2026`
+- Serás redirigido a `index.html` en modo admin
+- Ahora verás botones de ➕ **Agregar**, ✏️ **Editar**, 🗑️ **Eliminar**
 
 ### 3. **Agregar un Paso (Admin)**
-   - Haz clic en "+ Agregar Paso"
-   - Completa el formulario con:
-     - **Nombre del paso**: Ej: "Basic Step", "Talón-Punta"
-     - **Código embed**: Obtén de YouTube:
-       1. Abre un video de YouTube
-       2. Click en "Compartir" → "Insertar"
-       3. Copia el código `<iframe>...</iframe>`
-   - Click en "Guardar"
+
+- Haz clic en "+ Agregar Paso"
+- Completa el formulario con:
+  - **Nombre del paso**: Ej: "Basic Step", "Talón-Punta"
+  - **Código embed**: Obtén de YouTube:
+    1.  Abre un video de YouTube
+    2.  Click en "Compartir" → "Insertar"
+    3.  Copia el código `<iframe>...</iframe>`
+- Click en "Guardar"
 
 ### 4. **Editar un Paso (Admin)**
-   - Haz click en ✏️ al lado del paso
-   - Modifica los datos
-   - Click en "Guardar"
+
+- Haz click en ✏️ al lado del paso
+- Modifica los datos
+- Click en "Guardar"
 
 ### 5. **Eliminar un Paso (Admin)**
-   - Haz click en 🗑️ al lado del paso
-   - Confirma la eliminación
+
+- Haz click en 🗑️ al lado del paso
+- Confirma la eliminación
 
 ### 6. **Cerrar Sesión (Admin)**
-   - Haz click en "Cerrar Sesión" en el header
-   - Serás desloqueado y volverá a vista pública
+
+- Haz click en "Cerrar Sesión" en el header
+- Serás desloqueado y volverá a vista pública
 
 ## Justificación de Arquitectura
 
 ### Stack Tecnológico
+
 ```
 Frontend:     HTML5 + CSS3 + JavaScript Vanilla
 Backend:      Firebase Firestore
@@ -91,6 +104,7 @@ Auth:         Sistema propio (MVP) / Firebase Auth (futuro)
 ```
 
 **¿Por qué esta estructura?**
+
 - **Escalable**: Firebase maneja crecimiento automático
 - **Tiempo real**: Firestore sync sin consultas manuales
 - **Gratuito**: Firebase tiene plan free generoso
@@ -102,24 +116,29 @@ Auth:         Sistema propio (MVP) / Firebase Auth (futuro)
 ### Archivos Principales
 
 #### `index.html`
+
 - Página principal con lista de pasos
 - Modal para crear/editar
 - Lightbox para videos
 - Botones dinámicos (solo admin)
 
 #### `auth.js`
+
 - Sistema de autenticación
 - Gestión de sesión
 - Control de permisos
 - Mostrar/ocultar botones
 
 #### `login.html`
+
 - Página de login para admin
 - Formulario con validación
 - Redirección automática
 
 #### `app.js`
+
 **Funciones principales:**
+
 - `initRenderPasos()` - Sincroniza con Firestore
 - `renderPasos()` - Renderiza cards de pasos
 - `openLightbox(pasoId)` - Abre video en overlay
@@ -128,6 +147,7 @@ Auth:         Sistema propio (MVP) / Firebase Auth (futuro)
 - Validación de permisos en cada función CRUD
 
 #### `styles.css`
+
 - Gradientes modernos (rojo-rosa)
 - Grid responsive
 - Lightbox con animaciones
@@ -161,21 +181,25 @@ Auth:         Sistema propio (MVP) / Firebase Auth (futuro)
 ## Mejoras Futuras
 
 ### Phase 1: Seguridad
+
 - [ ] Migrar a localStorage (persistencia)
 - [ ] Validación más fuerte de contraseñas
 - [ ] Recuperación de contraseña
 
 ### Phase 2: Backend
+
 - [ ] Servidor Node.js + Express
 - [ ] Validación de permisos en servidor
 - [ ] Hashing de contraseñas (bcrypt)
 
 ### Phase 3: Firebase Auth
+
 - [ ] Firebase Authentication
 - [ ] Creación de cuentas admin
 - [ ] MFA (dos factores)
 
 ### Phase 4: Auditoría
+
 - [ ] Logs de cambios
 - [ ] Historial de ediciones
 - [ ] Notificaciones de cambios
@@ -183,6 +207,7 @@ Auth:         Sistema propio (MVP) / Firebase Auth (futuro)
 ## Contribuciones
 
 Para modificar o ampliar el proyecto:
+
 1. Consulta **[AGENTS.md](AGENTS.md)** para instrucciones
 2. Crea rama en `desa` (ver [docs/GIT_BRANCHES.md](docs/GIT_BRANCHES.md))
 3. Realiza cambios
@@ -196,5 +221,3 @@ Libre para uso y modificación
 
 **Versión Actual:** v2.0.0 (2026-04-17)
 **Última Actualización:** Admin & Authentication System
-
-
