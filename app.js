@@ -399,7 +399,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const btnLista = document.createElement('button');
     btnLista.id = 'btn-lista-pasos';
     btnLista.className = 'btn-secondary';
-    btnLista.textContent = '🩰 Listado de Danza';
+    btnLista.textContent = 'Pasos de Danza';
     btnLista.style.marginLeft = '10px';
     btnLista.onclick = () => {
       mostrarModulo('pasos');
