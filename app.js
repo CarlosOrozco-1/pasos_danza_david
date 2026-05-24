@@ -11,9 +11,10 @@ function initRenderPasos() {
     }));
     renderPasos();
   }, error => {
+    console.error("Firebase connection error:", error);
     document.getElementById('lista-pasos').innerHTML = `
       <div class="empty-state">
-        <p>Error al conectar con Firebase</p>
+        <p>Error al conectar con Firebase: ${error.message || error}</p>
       </div>
     `;
   });
@@ -224,9 +225,63 @@ function renderEnsenanzas() {
 
   const totalEnsenanzas = ensenanzasBiblicas.length + danzasCaidas.length;
   const todasExpandidas = ensenanzasExpandidas.size === totalEnsenanzas && totalEnsenanzas > 0;
-  const textoExpandir = todasExpandidas ? 'Collapse All' : 'Expand All';
+  const textoExpandir = todasExpandidas ? 'Contraer Todos' : 'Expandir Todos';
 
-  let html = '<div class="accordion-container">';
+  let html = `
+    <div class="intro-danza-container">
+      <h1 class="intro-title">La Danza: Expresión del Ser Integral</h1>
+      <p class="intro-text">La danza es una <strong>expresión corpórea rítmica</strong> que expresa lo que sentimos por dentro: agradecimiento, gozo, libertad, admiración y exaltación a Dios. <em>Salmos 103:1</em>: «Bendiga todo <strong>mi ser</strong> su santo nombre.» — <strong>Espíritu, Alma y Cuerpo.</strong></p>
+      
+      <div class="intro-grid-3">
+        <div class="intro-box">
+          <div class="intro-box-title">Armonía → Espíritu</div>
+          <p>Notas simultáneas que hacen que el espíritu adore y reaccione.</p>
+        </div>
+        <div class="intro-box">
+          <div class="intro-box-title">Melodía → Alma</div>
+          <p>Voz cantante que hace que el alma alabe y reaccione.</p>
+        </div>
+        <div class="intro-box">
+          <div class="intro-box-title">Ritmo → Cuerpo</div>
+          <p>Marca un tiempo, haciendo que el cuerpo dance y reaccione.</p>
+        </div>
+      </div>
+
+      <div class="intro-blockquote">
+        <div class="vertical-line"></div>
+        <p>Salmos 22:3 (KADOSH): «Tú eres Kadosh, habitas en las <strong>ALABANZAS</strong> de Yisra'el.»</p>
+      </div>
+
+      <h2 class="intro-subtitle">Tipos de Danzas en la Biblia</h2>
+      <p class="intro-text">La danza es para <strong>agradar al Señor y darle gloria a su nombre</strong>. No puede ser utilizada para algo sensual ni para provocar en el hombre ni en la mujer. Existen diferentes tipos:</p>
+
+      <div class="intro-grid-3 intro-grid-numbers">
+        <div class="intro-box-number">
+          <div class="number-header">1</div>
+          <div class="number-body">
+            <div class="intro-box-title">Danza Coros</div>
+            <p>Danza corpórea sin instrumentos. Expresiva, con fuerza y potencia.</p>
+          </div>
+        </div>
+        <div class="intro-box-number">
+          <div class="number-header">2</div>
+          <div class="number-body">
+            <div class="intro-box-title">Danza Panderos</div>
+            <p>Danza corpórea acompañada de panderos.</p>
+          </div>
+        </div>
+        <div class="intro-box-number">
+          <div class="number-header">3</div>
+          <div class="number-body">
+            <div class="intro-box-title">Danza Banderas</div>
+            <p>Danza corpórea con banderas como instrumento de expresión.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  html += '<div class="accordion-container">';
 
   // Header Global
   html += `
@@ -241,7 +296,6 @@ function renderEnsenanzas() {
   // Helper function to render a card
   const renderCard = (danza, isCaida = false) => {
     const isExpanded = ensenanzasExpandidas.has(danza.id);
-    const numTests = danza.versiculos ? danza.versiculos.length : 0;
     
     let cardHtml = `
       <div class="accordion-card ${isCaida ? 'card-caida' : ''}">
@@ -250,12 +304,11 @@ function renderEnsenanzas() {
             <div class="circle-icon"></div>
             <div class="title-text">
               <h3>${escapeHtml(danza.nombre)}</h3>
-              <span class="subtitle">${numTests} Test</span>
             </div>
           </div>
           <div class="accordion-toggle-area">
             <button class="accordion-toggle-btn">
-              <span class="toggle-icon">✔️</span> <span class="toggle-text">${isExpanded ? 'Collapse' : 'Expand'}</span>
+              <span class="toggle-icon">✔️</span> <span class="toggle-text">${isExpanded ? 'Contraer' : 'Expandir'}</span>
             </button>
           </div>
         </div>
@@ -341,19 +394,33 @@ function mostrarModulo(modulo) {
 
 // Agregar botón al menú principal
 window.addEventListener('DOMContentLoaded', () => {
-  // Crear botón si no existe
+  // Crear botón Listado
+  if (!document.getElementById('btn-lista-pasos')) {
+    const btnLista = document.createElement('button');
+    btnLista.id = 'btn-lista-pasos';
+    btnLista.className = 'btn-secondary';
+    btnLista.textContent = '🩰 Listado de Danza';
+    btnLista.style.marginLeft = '10px';
+    btnLista.onclick = () => {
+      mostrarModulo('pasos');
+      document.getElementById('ensenanza-admin-bar').style.display = 'none';
+    };
+    document.querySelector('.header-right').appendChild(btnLista);
+  }
+
+  // Crear botón Enseñanza
   if (!document.getElementById('btn-ensenanza')) {
-    const btn = document.createElement('button');
-    btn.id = 'btn-ensenanza';
-    btn.className = 'btn-secondary';
-    btn.textContent = '📖 Enseñanza Bíblica';
-    btn.style.marginLeft = '10px';
-    btn.onclick = () => {
+    const btnEnsenanza = document.createElement('button');
+    btnEnsenanza.id = 'btn-ensenanza';
+    btnEnsenanza.className = 'btn-secondary';
+    btnEnsenanza.textContent = '📖 Enseñanza Bíblica';
+    btnEnsenanza.style.marginLeft = '10px';
+    btnEnsenanza.onclick = () => {
       mostrarModulo('ensenanza');
       renderEnsenanzas();
       document.getElementById('ensenanza-admin-bar').style.display = modoAdmin ? '' : 'none';
     };
-    document.querySelector('.header-right').appendChild(btn);
+    document.querySelector('.header-right').appendChild(btnEnsenanza);
   }
   // Mostrar pasos por defecto
   mostrarModulo('pasos');
