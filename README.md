@@ -1,8 +1,8 @@
-# 🎭 Proyecto: Pasos de Danza
+# Departamento de Danza David
 
 ## Descripción
 
-Aplicación web interactiva para gestionar un listado de pasos de danza. **v2.0.0** incluye:
+Departamento de Danza David, enseñanza y servicio para el nuestro Señor Jesucristo. **v2.0.0** incluye:
 
 - 🔐 **Sistema de autenticación** para administradores
 - 👨‍💼 **Módulo admin** para crear, editar y eliminar pasos
