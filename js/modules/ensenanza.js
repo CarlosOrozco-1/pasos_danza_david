@@ -129,7 +129,7 @@ const danzasCaidas = [
     significado: 'Retorcer de dolor, bailar, herir, pervertir.',
     explicacion: 'Danza que no glorifica a Dios, motivada por sentimientos melancólicos o ángeles caídos.',
     versiculos: [
-      { cita: 'Jueces 21:21', texto: '' } ]
+      { cita: 'Jueces 21:21', texto: 'y estad atentos; y cuando veáis salir a las hijas de Silo a bailar en corros, salid de las viñas, y arrebatad cada uno mujer para sí de las hijas de Silo, e idos a tierra de Benjamín.' } ]
   },
   {
     id: 'tafaf',
@@ -138,7 +138,7 @@ const danzasCaidas = [
     significado: 'Trastabillar con pasos cortos, danzar con coquetería.',
     explicacion: 'Danza sensual, no para glorificar a Dios.',
     versiculos: [
-      { cita: 'Isaías 3:16', texto: '' } ]
+      { cita: 'Isaías 3:16', texto: 'Asimismo dice Jehová: Por cuanto las hijas de Sion se ensoberbecen, y andan con cuello erguido y con ojos desvergonzados; cuando andan van danzando, y haciendo son con los pies;' } ]
   }
 ];
 
