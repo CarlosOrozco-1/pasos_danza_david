@@ -714,7 +714,7 @@ header h1 {
 
 .lista-pasos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
   gap: 20px;
 }
 
@@ -1023,6 +1023,71 @@ header h1 {
   .lightbox-video {
     /* Ratio 16:9 se mantiene */
   }
+
+  /* Ajustes para la Cabecera en Móvil */
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    padding-bottom: 15px;
+  }
+
+  .header-left {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header h2 {
+    font-size: 1.1rem;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Ajustar botones de cabecera en móvil */
+  .header-right button,
+  .header-right .btn-primary,
+  .header-right .btn-secondary {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    margin-left: 0 !important; /* Quita el margin-left: 10px hardcodeado en main.js */
+    flex: 1 1 calc(50% - 8px); /* Botones en rejilla de 2 columnas en pantallas pequeñas */
+    min-width: 130px;
+    text-align: center;
+  }
+
+  .user-info {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  /* Ajustes del Módulo de Biblia en Móvil */
+  .biblia-controles {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .biblia-select {
+    width: 100%;
+    text-align: center;
+  }
+
+  #btn-leer-biblia {
+    width: 100%;
+  }
 }
 
 /* ==================== MODAL DE LOGIN ====================*/
@@ -1100,12 +1165,47 @@ header h1 {
 }
 
 @media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
   .login-modal-content {
     padding: 30px 20px;
   }
 
   .login-modal-content h2 {
     font-size: 1.5rem;
+  }
+
+  /* Reducir paddings de secciones y cards para aprovechar espacio horizontal */
+  .biblia-contenido {
+    padding: 15px;
+  }
+
+  .capitulo-titulo {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+
+  .versiculo-lectura {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .paso-card {
+    padding: 16px;
+  }
+
+  .accordion-header {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .accordion-toggle-btn {
+    align-self: flex-end;
   }
 }
 
